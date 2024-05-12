@@ -1,0 +1,22 @@
+{
+  "name": "finance_manager",
+  "version": "1.0.0",
+  "description": "Develop a personal finance management application to help users track theirincome, expenses, and savings goals.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sumeetjain2002/Finance_manager.git"
+  },
+  "author": "Sumeet Jain, Aayush Gupta",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sumeetjain2002/Finance_manager/issues"
+  },
+  "homepage": "https://github.com/sumeetjain2002/Finance_manager#readme",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
