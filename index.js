@@ -15,10 +15,14 @@ let getPath = (file)=>path.join(__dirname,file);
 app.use(express.urlencoded({extended: true}));
 //to read body of post request
 
-app.use('/', (req, res, next) => {
-    res.render('index');
-    //homepage when server starts
-})
+const homeRouter = require('./routes/home');
+app.use('/', homeRouter);
+//homepage when server starts
+
+// app.use('/', (req, res, next) => {
+//     res.render('index');
+    
+// })
 
 
 app.listen(port,()=>{
