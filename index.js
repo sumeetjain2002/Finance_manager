@@ -23,7 +23,7 @@ app.use('/', homeRouter);
 //     res.render('index');
     
 // })
-
+const userRouter = require('./routes/user');
 
 app.listen(port,()=>{
 console.log(base+':'+port);
