@@ -36,4 +36,4 @@ const userSchema = new Schema({
     }
 })
 
-module.exports = mongoose.model('testing', userSchema);
+module.exports = mongoose.model('user', userSchema);   // isse collection name ban jayega user naam ka

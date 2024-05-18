@@ -6,11 +6,13 @@ const base='http://localhost';
 const hbs = require('hbs');
 const mongoose = require('mongoose');
 require('dotenv').config();
+const test1 = require('./models/user');
 
 app.set("view engine", "hbs");
 let getPath = (file)=>path.join(__dirname,file);
  // function to get path of file
- 
+ app.use(express.json());
+
 // app.use(express.static(path.join(__dirname,'<folderName>')));
  // to serve static files/folders using middlewares
 
@@ -26,6 +28,7 @@ app.use('/', homeRouter);
     
 // })
 const userRouter = require('./routes/user');
+app.use('/user', userRouter);
 
 mongoose.connect(process.env.mongo_URL).then(()=>
 {
