@@ -6,7 +6,7 @@ const base='http://localhost';
 const hbs = require('hbs');
 const mongoose = require('mongoose');
 require('dotenv').config();
-const test1 = require('./models/user');
+// const test1 = require('./models/transaction');
 
 app.set("view engine", "hbs");
 let getPath = (file)=>path.join(__dirname,file);

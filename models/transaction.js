@@ -10,7 +10,7 @@ const userSchema = new Schema({
     password: String,
     email:String,
 
-    statement:  {
+    statement: [{ 
         transactionId:{
             type: Number,
             required:true   
@@ -33,7 +33,7 @@ const userSchema = new Schema({
         }
 
 
-    }
+    }]
 })
 
 module.exports = mongoose.model('user', userSchema);   // isse collection name ban jayega user naam ka
