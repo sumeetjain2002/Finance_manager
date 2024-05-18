@@ -2,8 +2,10 @@ const path = require('path');
 const express = require('express');
 const app = express();
 const port = 3000;
-const base='127.0.0.1';
+const base='http://localhost';
 const hbs = require('hbs');
+const mongoose = require('mongoose');
+require('dotenv').config();
 
 app.set("view engine", "hbs");
 let getPath = (file)=>path.join(__dirname,file);
@@ -25,9 +27,15 @@ app.use('/', homeRouter);
 // })
 const userRouter = require('./routes/user');
 
-app.listen(port,()=>{
-console.log(base+':'+port);
-});
+mongoose.connect(process.env.mongo_URL).then(()=>
+{
+    app.listen(port,()=>{
+        console.log(base+':'+port);
+        });
+})
+.catch((err)=>console.log(err));
+
+
 
 
 

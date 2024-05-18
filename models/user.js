@@ -6,10 +6,34 @@ const userSchema = new Schema({
         type: String,
         required:true
     },
-    contactNumber: {
-        type: String,
-        required:true
-    },
+
     password: String,
-    email:String
+    email:String,
+
+    statement:  {
+        transactionId:{
+            type: Number,
+            required:true   
+        },
+        amount:{
+            type: Number,
+            required:true
+        },
+        date:{
+            type: Date,
+            default: Date.now
+        },
+        type:{             //credit or debit
+            type: String,
+            required:true
+        },
+        description:{       //salary, rent, etc
+            type: String,
+            required:true
+        }
+
+
+    }
 })
+
+module.exports = mongoose.model('testing', userSchema);
