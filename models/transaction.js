@@ -1,13 +1,11 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const userSchema = new Schema({
+const trans = new Schema({
     username: {
         type: String,
         required:true
     },
-
-    password: String,
     email:String,
 
     statement: [{ 
@@ -36,4 +34,4 @@ const userSchema = new Schema({
     }]
 })
 
-module.exports = mongoose.model('user', userSchema);   // isse collection name ban jayega user naam ka
+module.exports = mongoose.model('lendendb', trans);   // isse collection name ban jayega user naam ka

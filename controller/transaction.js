@@ -3,38 +3,55 @@ const user = require('../models/transaction');
 
 module.exports.postLogin = async(req, res, next) => {
     const {name,password}=req.body;
-
     try{
         const data = await user.find();
-        for(let i=0;i<data.length;i++){
-            if(data[i].username===name ){
-                
-                data[i].statement.push(
-                    {
-                        transactionId:2,
-                        amount:1,
-                        type:"debit",
-                        description:"Len den huya"
-                      }    );  
-                await data[i].save(); 
-                break;
-                
-
-            }
-            await user.create({
-           username:name,password,
-
-           email:"sumeet@gmail.com",
-            statement:{
-                transactionId:1,
-                amount:10000,
-                type:"credit",
-                description:"Len den huya"
-              }                          // custom data
-
-        });
-        }
         
+        if(data.length==0){
+            await user.create({
+                username:name,password,
+        
+                email:"sumeet@gmail.com",
+                 statement:{
+                     transactionId:1,
+                     amount:1,
+                     type:"credit",
+                     description:"first user creation in arr"
+                   }                          // custom data
+        
+             });
+        }
+        else{
+            for(let i=0;i<data.length;i++){
+                if(data[i].username===name ){
+                    
+                    data[i].statement.push(
+                        {
+                            transactionId:2,
+                            amount:1,
+                            type:"debit",
+                            description:"for first"
+                          }    );  
+                    await data[i].save(); 
+                    break;
+                }
+                
+                else if(i+1==data.length){
+                    await user.create({
+                        username:name,password,
+             
+                        email:"sumeet@gmail.com",
+                         statement:{
+                             transactionId:1,
+                             amount:1,
+                             type:"credit",
+                             description:"create userin for loop"
+                           }                          // custom data
+             
+                     });
+                }
+                
+        }
+        }
     }
 
         catch(err){

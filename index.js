@@ -21,14 +21,10 @@ app.use(express.urlencoded({extended: true}));
 
 const homeRouter = require('./routes/home');
 app.use('/', homeRouter);
-//homepage when server starts
 
-// app.use('/', (req, res, next) => {
-//     res.render('index');
-    
-// })
 const userRouter = require('./routes/user');
 app.use('/user', userRouter);
+
 
 mongoose.connect(process.env.mongo_URL).then(()=>
 {
