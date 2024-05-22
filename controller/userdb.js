@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const user = require('../models/userdb');
-const { isExist } = require('../middlewares/isExist');
+const { isNew } = require('../middlewares/isNew');
 const transaction = require('../models/transaction');
 const bcrypt=require('bcrypt')
 
@@ -10,14 +10,17 @@ module.exports.postLogin = async(req, res, next) => {
     
     try{
         
-        if(isExist(req)){
-            console.log(name);
+        if(await isNew(req)){
             await user.create({
                 username:name,
                 email                     
             });
 
-
+         console.log("User created");
+        }
+        else{
+            
+            next;
         }
     }
 
@@ -25,7 +28,9 @@ module.exports.postLogin = async(req, res, next) => {
         next(err);
     }
 
-    res.render('profile');}
+    res.render('profile',{name});
+
+}
 
 
 module.exports.getProfile = async(req, res, next) => {
