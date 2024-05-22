@@ -16,5 +16,6 @@ router.get('/fillout', userController.getFillout);
 //         res.redirect('/profile');
 //     });
 
+router.post('/fillout', userController.postFillout);
 
 module.exports = router;
