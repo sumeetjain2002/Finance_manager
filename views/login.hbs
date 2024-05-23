@@ -5,20 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+    <link rel="stylesheet" href="./styles/login.css">
 <body>
-    <h1>Welcome to login</h1>
-    <form action="/user/login" method="post">
-        <input type="text" name="name" placeholder="name">
-        <input type="text" name="email" placeholder="email id">
+    <div class="login">
+        <h1>Welcome to Login</h1>
+        <div class="cred">
+            <form action="/user/login" method="post">
 
-        <button type="submit">Login</button>
-    </form>
+                <input type="text" name="name" placeholder="NAME"><br>
+                <input type="text" name="email" placeholder="EMAIL-ID"><br>
 
-<a href="/googleauth">Login with Google</a>
+                <button type="submit">Login</button>
+            </form>
+        </div>
 
-    <div>
-        Not a user? Signup instead.
-        <a href="/signup">Signup</a>
+        <div class="googleauth">
+            <a href="/googleauth">Login with Google</a><br><br>
+            Not a User? <a href="/signup">Signup Here</a>
+        </div>
     </div>
+    
 </body>
 </html>

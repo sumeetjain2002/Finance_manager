@@ -13,7 +13,7 @@ let getPath = (file)=>path.join(__dirname,file);
  // function to get path of file
  app.use(express.json());
 
-// app.use(express.static(path.join(__dirname,'<folderName>')));
+app.use(express.static(path.join(__dirname,'public')));
  // to serve static files/folders using middlewares
 
 app.use(express.urlencoded({extended: true}));
