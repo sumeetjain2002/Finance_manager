@@ -1,6 +1,7 @@
 const path = require('path');
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 
 router.get('/', (req, res, next) => {
     res.render('index');
@@ -13,6 +14,16 @@ router.get('/login', (req, res, next) => {
 router.get('/signup', (req, res, next) => {
  res.render('signup'); 
 });
+
+router.get('/auth/google',
+    passport.authenticate('google', { scope: ['profile'] }));
+
+router.get('/auth/google/callback',
+    passport.authenticate('google', { failureRedirect: '/login' }),
+    function (req, res) {
+        // Successful authentication, redirect home.
+        res.redirect('/profile');
+    });
 
 
 module.exports = router;
