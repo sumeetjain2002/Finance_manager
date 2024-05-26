@@ -9,7 +9,13 @@ const userSchema = new Schema({
     email:{
         type: String,
         required:true
-    }
+    },
+    password:{
+        type: String
+    },
+    googleAccessToken: String,
+    googleId: String,
+    googleImg: String
 })
 
 module.exports = mongoose.model('users', userSchema);   // isse collection name ban jayega user naam ka

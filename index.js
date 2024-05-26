@@ -6,6 +6,12 @@ const base='http://localhost';
 const hbs = require('hbs');
 const mongoose = require('mongoose');
 require('dotenv').config();
+app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
+const passport = require('passport');
+app.use(passport.initialize());
+app.use(passport.session());
+require('./authentication/passport');
+
 // const test1 = require('./models/transaction');
 
 app.set("view engine", "hbs");

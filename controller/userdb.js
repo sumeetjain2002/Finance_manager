@@ -1,41 +1,59 @@
 const mongoose = require('mongoose');
-const user = require('../models/userdb');
+const User = require('../models/userdb');
 const { isNew } = require('../middlewares/isNew');
 const transaction = require('../models/transaction');
 const bcrypt=require('bcrypt')
+const saltRounds = 10;
 
+module.exports.postSignup = async(req, res, next) => {
+    if(req.user) return res.redirect('/profile');
 
-module.exports.postLogin = async(req, res, next) => {
-    const {name,email}=req.body;
-    
-    try{
+    const { username, password,email } = req.body;
+    let user = await User.findOne({ email });
+    if (user) {
+        return res.render('404', {
+            msg: "Email already exist in our system..."
+        })
+    }
+   
+   
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
         
-        if(await isNew(req)){
-            await user.create({
-                username:name,
-                email                     
-            });
+        user = new User({
+            username,
+            email,
+            password: hash
+        })
 
-         console.log("User created");
-        }
-        else{
-            
-            next;
-        }
-    }
+        await user.save();
 
-    catch(err){
-        next(err);
-    }
-
-    res.render('profile',{name,req});
+        res.redirect('/login');
+    });
 
 }
 
+module.exports.postLogin=async(req,res,next)=>
+    {
+        if(req.user) return res.redirect('/profile');
+        const { username, password } = req.body;
+
+        let user = await User.findOne({ username });
+        if (!user) {                                     
+        return res.render('login', {
+            msg: "Enter correct credentials"
+        })
+            }
+    
+    bcrypt.hash(password, saltRounds, async function (err, hash) {
+
+        
+    })
+        
+    }
 
 module.exports.getProfile = async(req, res, next) => {
     try{
-        const data = await user.find();
+        const data = await User.find();
         
         res.render('profile',{data});
     }
@@ -51,7 +69,7 @@ module.exports.getFillout = (req, res, next) => {
 module.exports.postFillout = async(req, res, next) => {   
     const {name,email,amount,description}=req.body;
    
-    const data = await user.find({email});
+    const data = await User.find({email});
     console.log(data);
    
     try{

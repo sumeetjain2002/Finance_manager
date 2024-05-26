@@ -9,11 +9,13 @@
 <body>
     <div class="login">
         <h1>Welcome to Login</h1>
+        <h2>{{msg}}</h2>
         <div class="cred">
             <form action="/user/login" method="post">
 
-                <input type="text" name="name" placeholder="NAME"><br>
-                <input type="text" name="email" placeholder="EMAIL-ID"><br>
+
+                <input type="text" name="username" placeholder="NAME"><br>
+                <input type="text" name="password" placeholder="PASSWORD"><br>
 
                 <button type="submit">Login</button>
             </form>
