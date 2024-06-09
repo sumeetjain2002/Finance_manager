@@ -34,7 +34,8 @@ module.exports.postSignup = async(req, res, next) => {
 
 module.exports.postLogin=async(req,res,next)=>
     {
-        if(req.user) return res.redirect('/profile');
+        
+        if(req.username) return res.redirect('profile');
         const { username, password } = req.body;
 
         let user = await User.findOne({ username });
@@ -42,6 +43,10 @@ module.exports.postLogin=async(req,res,next)=>
         return res.render('login', {
             msg: "Enter correct credentials"
         })
+            }
+            else
+            {
+                res.render('profile',{name:username});
             }
     
     bcrypt.hash(password, saltRounds, async function (err, hash) {
@@ -53,7 +58,7 @@ module.exports.postLogin=async(req,res,next)=>
 
 module.exports.getProfile = async(req, res, next) => {
     try{
-        const data = await User.find();
+        const data = await User.find(); 
         
         res.render('profile',{data});
     }

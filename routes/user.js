@@ -13,11 +13,6 @@ router.get('/profile', userController.getProfile);
 
 router.get('/fillout', userController.getFillout);
 
-// router.post('/login',
-//     passport.authenticate('local', { failureRedirect: '/login' }),
-//     function (req, res) {
-//         res.redirect('/profile');
-//     });
 
 router.post('/fillout', userController.postFillout);
 
