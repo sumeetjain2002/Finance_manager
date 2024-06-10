@@ -72,8 +72,9 @@ module.exports.getFillout = (req, res, next) => {
 }
 
 module.exports.postFillout = async(req, res, next) => {   
-    const {name,email,amount,description}=req.body;
-   
+    const {amount,category,description,account}=req.body;
+    const email=req.session.email;
+    const name=req.session.user;
     const data = await User.find({email});
     console.log(data);
    
@@ -83,8 +84,9 @@ module.exports.postFillout = async(req, res, next) => {
             email,
             statement:[{
                 transactionId:Math.floor(Math.random()*1000),
+                category,
                 amount,
-                type:"credit",
+                type:account,
                 description
             }]
         });

@@ -59,11 +59,11 @@ passport.serializeUser(function (user, done) {
 
 
 passport.deserializeUser(async function (id, done) {
-    console.log("Deserialize", id);
+        // console.log("Deserialize", id);
     try {
-        console.log("Deserialize", id);
+        // console.log("Deserialize", id);
         let user = await User.findOne({ _id: id });
-        console.log("Deserialize", user);
+        // console.log("Deserialize", user);
         if (!user) return done(null, false);
         done(null, user);
     } catch (err) {
