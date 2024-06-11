@@ -47,15 +47,16 @@ module.exports.postLogin=async(req,res,next)=>
             else
         {
             checkUser(username, password);
-            console.log('outside function');
+            // console.log('outside function');
             async function checkUser(username, password) {
                 //... fetch user from a db etc.
-                console.log(password);
-                console.log(user.password);
+                // console.log(password);
+                // console.log(user.password);
                 const match = await bcrypt.compare(password, user.password);
             
                 if(match) {
                     //login
+                    
                     res.render('profile',{name:username});
                 }
             
@@ -93,7 +94,7 @@ module.exports.postFillout = async(req, res, next) => {
     const {amount,category,description,account}=req.body;
     const email=req.session.email; 
     const name = req.session.user;
-    console.log(req.session); //session is empty because cookie not added
+    console.log(req.session.email); //session is empty because cookie not added
     console.log(req.body);
     const data = await User.find({email});
     console.log(data); //session is not getting fetched that is why not getting email
