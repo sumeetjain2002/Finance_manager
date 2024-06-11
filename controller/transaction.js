@@ -69,3 +69,15 @@ module.exports.getProfile = async(req, res, next) => {
         next(err);
     }
 }
+
+module.exports.getDashboard = async (req, res, next) => {
+    try {
+        const data = await user.find({ username: "Aayush" });
+        console.log(data[0].statement);
+        let transac = data[0];
+        res.render('dashboard',{transac});
+    }
+    catch (err) {
+        next(err);
+    }
+}
