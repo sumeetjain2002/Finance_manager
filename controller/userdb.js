@@ -45,14 +45,32 @@ module.exports.postLogin=async(req,res,next)=>
         })
             }
             else
-            {
-                res.render('profile',{name:username});
+        {
+            checkUser(username, password);
+            console.log('outside function');
+            async function checkUser(username, password) {
+                //... fetch user from a db etc.
+                console.log(password);
+                console.log(user.password);
+                const match = await bcrypt.compare(password, user.password);
+            
+                if(match) {
+                    //login
+                    res.render('profile',{name:username});
+                }
+            
+                //...
+                return res.render('login', {
+                    msg: "Enter correct credentials"
+                })
             }
+                
+        }
     //bycrypt krenge password and then check krenge if it matches
-    bcrypt.hash(password, saltRounds, async function (err, hash) {
+    // bcrypt.hash(password, saltRounds, async function (err, hash) {
 
         
-    })
+    // })
         
     }
 
