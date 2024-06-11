@@ -11,7 +11,7 @@ module.exports.postSignup = async(req, res, next) => {
     const { username, password,email } = req.body;
     let user = await User.findOne({ email });
     if (user) {
-        return res.render('404', {
+        return res.render('signup', {
             msg: "Email already exist in our system..."
         })
     }
@@ -38,21 +38,39 @@ module.exports.postLogin=async(req,res,next)=>
         if(req.username) return res.redirect('profile');
         const { username, password } = req.body;
 
-        let user = await User.findOne({ username });
+        let user = await User.findOne({ username });// $where
         if (!user) {                                     
         return res.render('login', {
             msg: "Enter correct credentials"
         })
             }
             else
-            {
-                res.render('profile',{name:username});
+        {
+            checkUser(username, password);
+            console.log('outside function');
+            async function checkUser(username, password) {
+                //... fetch user from a db etc.
+                console.log(password);
+                console.log(user.password);
+                const match = await bcrypt.compare(password, user.password);
+            
+                if(match) {
+                    //login
+                    res.render('profile',{name:username});
+                }
+            
+                //...
+                return res.render('login', {
+                    msg: "Enter correct credentials"
+                })
             }
-    
-    bcrypt.hash(password, saltRounds, async function (err, hash) {
+                
+        }
+    //bycrypt krenge password and then check krenge if it matches
+    // bcrypt.hash(password, saltRounds, async function (err, hash) {
 
         
-    })
+    // })
         
     }
 
@@ -73,10 +91,13 @@ module.exports.getFillout = (req, res, next) => {
 
 module.exports.postFillout = async(req, res, next) => {   
     const {amount,category,description,account}=req.body;
-    const email=req.session.email;
-    const name=req.session.user;
+    const email=req.session.email; 
+    const name = req.session.user;
+    console.log(req.session); //session is empty because cookie not added
+    console.log(req.body);
     const data = await User.find({email});
-    console.log(data);
+    console.log(data); //session is not getting fetched that is why not getting email
+                       // hence data is empty
    
     try{
         await transaction.create({

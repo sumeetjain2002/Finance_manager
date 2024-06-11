@@ -9,9 +9,9 @@
 <body>
     <div class="signup">
         <h1>Welcome to signup page</h1>
-        <h2>
+        {{!-- <h2>
             {{msg}}
-        </h2>
+        </h2> --}}
         <div class="cred">
             <form action="/user/signup" method="post">
                 <input type="text" name="username" placeholder="Enter username"><br>
@@ -20,6 +20,7 @@
                 <input type="text" name="email" placeholder="Enter Email Id"><br>
 
                 <input type="password" name="password" placeholder="Enter password"><br>
+                <p>{{msg}}</p>
                 <button type="submit">Signup</button>
             </form>
         </div>
