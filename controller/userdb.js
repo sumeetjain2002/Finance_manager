@@ -4,6 +4,7 @@ const { isNew } = require('../middlewares/isNew');
 const transaction = require('../models/transaction');
 const bcrypt=require('bcrypt')
 const saltRounds = 10;
+const checkUser = require('../middlewares/CheckUser');
 
 module.exports.postSignup = async(req, res, next) => {
     if(req.user) return res.redirect('/profile');
@@ -37,41 +38,18 @@ module.exports.postLogin=async(req,res,next)=>
         
         if(req.username) return res.redirect('profile');
         const { username, password } = req.body;
-
+        
         let user = await User.findOne({ username });// $where
         if (!user) {                                     
         return res.render('login', {
             msg: "Enter correct credentials"
         })
             }
-            else
-        {
-            checkUser(username, password);
-            // console.log('outside function');
-            async function checkUser(username, password) {
-                //... fetch user from a db etc.
-                // console.log(password);
-                // console.log(user.password);
-                const match = await bcrypt.compare(password, user.password);
-            
-                if(match) {
-                    //login
-                    
-                    res.render('profile',{name:username});
-                }
-            
-                //...
-                return res.render('login', {
-                    msg: "Enter correct credentials"
-                })
-            }
-                
+        else
+        {   
+            checkUser(username, password,user,req,res);    // middleware
         }
-    //bycrypt krenge password and then check krenge if it matches
-    // bcrypt.hash(password, saltRounds, async function (err, hash) {
 
-        
-    // })
         
     }
 
@@ -79,6 +57,10 @@ module.exports.getProfile = async(req, res, next) => {
     try{
         const data = await User.find(); 
         
+        // console.log(data);
+        // console.log(req);
+        // req.session.username= req.user;
+        // console.log(req.user);
         res.render('profile',{data});
     }
     catch(err){
@@ -92,9 +74,9 @@ module.exports.getFillout = (req, res, next) => {
 
 module.exports.postFillout = async(req, res, next) => {   
     const {amount,category,description,account}=req.body;
-    const email=req.session.email; 
+    const email=req.session.views.email; 
     const name = req.session.user;
-    console.log(req.session.email); //session is empty because cookie not added
+    console.log(email); //session is empty because cookie not added
     console.log(req.body);
     const data = await User.find({email});
     console.log(data); //session is not getting fetched that is why not getting email

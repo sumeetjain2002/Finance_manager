@@ -22,10 +22,9 @@ router.get('/auth/google/callback',
     passport.authenticate('google', { failureRedirect: '/login' }),
     function (req, res) {
         // Successful authentication, redirect home.
-        // console.log(req.user);
-        req.session = req.user;
+        req.session.username = req.user.username;
         
-        res.render('profile', {name:req.user.username, gStatement:"Seems like you login via Google Authentication, your password is safe with us."});
+        res.render('profile', {name:req.session.username, gStatement:"Seems like you login via Google Authentication, your password is safe with us."});
     });
 
 

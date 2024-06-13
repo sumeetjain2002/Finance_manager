@@ -11,6 +11,14 @@ const passport = require('passport');
 app.use(passport.initialize());
 app.use(passport.session());
 require('./authentication/passport');
+const session = require('express-session');
+
+app.use(session({
+    secret: 'Sumeet Jain',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }))
 
 // const test1 = require('./models/transaction');
 
