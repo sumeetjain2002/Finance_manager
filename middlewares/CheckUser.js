@@ -4,7 +4,8 @@ module.exports = async function checkUser(username, password,user,req,res) {
     const match = await bcrypt.compare(password, user.password);
 
     if(match) {
-       return res.render('profile',{name:username});
+        req.session.username = user.username;
+       return res.redirect('/user/profile');
     }
 
     else{

@@ -6,8 +6,8 @@ const bcrypt=require('bcrypt')
 const saltRounds = 10;
 const checkUser = require('../middlewares/CheckUser');
 
-module.exports.postSignup = async(req, res, next) => {
-    if(req.user) return res.redirect('/profile');
+module.exports.postSignup = async(req, res, next) => {      
+    if(req.session.username) return res.redirect('/user/profile');  
 
     const { username, password,email } = req.body;
     let user = await User.findOne({ email });
@@ -55,13 +55,10 @@ module.exports.postLogin=async(req,res,next)=>
 
 module.exports.getProfile = async(req, res, next) => {
     try{
-        const data = await User.find(); 
-        
-        // console.log(data);
-        // console.log(req);
-        // req.session.username= req.user;
-        // console.log(req.user);
-        res.render('profile',{data});
+        const data= req.session.username;
+        req.session.save();
+        console.log(req.session);
+        res.render('profile',{name:data});
     }
     catch(err){
         next(err);
