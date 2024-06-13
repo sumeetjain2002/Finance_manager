@@ -8,11 +8,7 @@ const trans = new Schema({
     },
     email:String,
 
-    statement: [{ 
-        transactionId:{
-            type: Number,
-            required:true   
-        },
+    statement: [{  //array of objects
         category:
         {
            type:"String",

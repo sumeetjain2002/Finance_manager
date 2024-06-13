@@ -57,7 +57,7 @@ module.exports.getProfile = async(req, res, next) => {
     try{
         const data= req.session.username;
         req.session.save();
-        console.log(req.session);
+
         res.render('profile',{name:data});
     }
     catch(err){
@@ -71,32 +71,41 @@ module.exports.getFillout = (req, res, next) => {
 
 module.exports.postFillout = async(req, res, next) => {   
     const {amount,category,description,account}=req.body;
-    const email=req.session.views.email; 
-    const name = req.session.user;
-    console.log(email); //session is empty because cookie not added
-    console.log(req.body);
-    const data = await User.find({email});
-    console.log(data); //session is not getting fetched that is why not getting email
-                       // hence data is empty
-   
-    try{
-        await transaction.create({
-            username:name,
-            email,
-            statement:[{
-                transactionId:Math.floor(Math.random()*1000),
-                category,
-                amount,
-                type:account,
-                description
-            }]
-        });
-        await transaction.save();
+    console.log("fillout ka hai yeh");
+    const email=req.session.email; 
+    const name = req.session.username;
+    const data = await transaction.find({email});
+    if(data)
+    {
+        try{
+        await transaction.updateOne({email}, {$push: {statement:[{
+                    category,
+                    amount,
+                    type:account,
+                    description
+                }
+            ]}},{upsert:true});
+        
         console.log("Data saved");
         res.render('profile',{name});
     }
+
     catch(err){
         next(err);
+    }
+}
+    else 
+    {
+        await transaction.create({
+                username:name,
+                email,
+                statement:[{
+                    category,
+                    amount,
+                    type:account,
+                    description
+                }]
+            });
     }
 
 

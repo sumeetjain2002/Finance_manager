@@ -23,8 +23,9 @@ router.get('/auth/google/callback',
     function (req, res) {
         // Successful authentication, redirect home.
         req.session.username = req.user.username;
-        
-        res.render('profile', {name:req.session.username, gStatement:"Seems like you login via Google Authentication, your password is safe with us."});
+        req.session.email = req.user.email;
+        req.session.save();
+        res.redirect('/user/profile');
     });
 
 

@@ -2,8 +2,8 @@ const path = require('path');
 const express = require('express');
 const router = express.Router();
 
-const userController = require('../controller/userdb');
-const transactionController=require('../controller/transaction')
+const userController = require('../controller/dbcontroller');
+
 
 router.post('/signup', userController.postSignup);
 
@@ -13,7 +13,6 @@ router.get('/profile', userController.getProfile);
 
 router.get('/fillout', userController.getFillout);
 
-router.get('/dash', transactionController.getDashboard);
 
 router.post('/fillout', userController.postFillout);
 
