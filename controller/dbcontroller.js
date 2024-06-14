@@ -5,6 +5,7 @@ const transaction = require('../models/transaction');
 const bcrypt=require('bcrypt')
 const saltRounds = 10;
 const checkUser = require('../middlewares/CheckUser');
+const logout=require('../middlewares/logout');   //acquired logout middleware 
 
 module.exports.postSignup = async(req, res, next) => {      
     if(req.session.username) return res.redirect('/user/profile');  
@@ -111,3 +112,11 @@ module.exports.postFillout = async(req, res, next) => {
 
 
  }
+
+ module.exports.getLogout= async(req,res,next)=>
+    {
+        console.log("logout done");
+        logout(req);  
+        
+        res.redirect('/');
+    }

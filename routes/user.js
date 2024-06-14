@@ -16,5 +16,6 @@ router.get('/fillout', userController.getFillout);
 
 router.post('/fillout', userController.postFillout);
 
+router.get('/logout', userController.getLogout);
 
 module.exports = router;
