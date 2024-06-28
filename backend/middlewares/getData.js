@@ -7,6 +7,7 @@ module.exports = async function getData(req, res, email) {
         return item;
        })
        console.log("array ki items ------------------>", arr);
+       return arr;
     } catch (err) {
         console.log(err);
     }

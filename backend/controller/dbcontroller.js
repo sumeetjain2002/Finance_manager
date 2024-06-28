@@ -113,9 +113,11 @@ module.exports.postFillout = async(req, res, next) => {
 
  }
 
+ const exportdata=require("../middlewares/exportdata");
  module.exports.getLogout= async(req,res,next)=>
     {
         console.log("logout done");
+        exportdata();
         logout(req);  
         
         res.redirect('/');
